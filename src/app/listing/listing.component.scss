@@ -1,0 +1,41 @@
+.container {
+    height: 100%;
+    background: #e9e9e9;
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    .link-text {
+        text-decoration: none;
+        color: white;
+    }
+
+    .main-wrapper {
+        padding: 0 20px;
+
+        .title-container {
+            padding: 20px 0px;
+            // border: 1px solid red;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .title-container-left {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+
+                .breadcrumb-icon {
+                    height: 20px;
+                    width: 20px;
+                }
+
+                .title-text {
+                    margin-bottom: 0px !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,79 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <a [routerLink]="['/home']" class="link-text">DEMO APP</a>
+      <span class="spacer"></span>
+      <button mat-icon-button type="button" matTooltip="Logout" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="main-wrapper">
+    <mat-card class="mat-elevation-z0">
+      <mat-card-header>
+        <mat-card-title>Calculate</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="form-content" [formGroup]="policySumInsForm" (ngSubmit)="calculatePolicySI()">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Sum Assured"  formControlName="amount" required />
+            <mat-error *ngIf="policySumInsForm.get('amount')?.hasError('required')">
+              Amount is <strong>required</strong>
+            </mat-error>
+            <mat-error  *ngIf="policySumInsForm.get('amount')?.hasError('max') && !policySumInsForm.hasError('required')">
+              Max value is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" placeholder="Model Premium" formControlName="premium" required />
+            <mat-error *ngIf="policySumInsForm.get('premium')?.hasError('required')">
+              Premium is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" placeholder="PT" formControlName="pt" required />
+            <mat-error *ngIf="policySumInsForm.get('pt')?.hasError('required')">
+              PT is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" placeholder="PPT" formControlName="ppt" required />
+            <mat-error *ngIf="policySumInsForm.get('ppt')?.hasError('required')">
+              PPT is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a age</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="age" required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-error *ngIf="policySumInsForm.get('age')?.hasError('required')">
+              Age is <strong>required</strong>
+            </mat-error>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill">
+            <mat-label>Premium frequency</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option *ngFor="let frequency of frequencies" [value]="frequency.value">
+                {{frequency.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="submitLoader">
+            <div class="btn-content">
+              <span>Calculate</span>
+              <mat-spinner *ngIf="submitLoader" diameter="18"></mat-spinner>
+            </div>
+          </button>
+        </form>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button type="button" mat-flat-button routerLink="/listings">
+          View Listings
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

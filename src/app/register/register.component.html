@@ -1,0 +1,109 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        class="form-content"
+        [formGroup]="registerForm"
+        (ngSubmit)="register()"
+      >
+        <mat-form-field appearance="fill">
+          <input matInput placeholder="Name" formControlName="name" required />
+          <mat-error *ngIf="registerForm.get('name')?.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="email"
+            required
+          />
+          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+            Email ID is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+            Please enter valid Email ID
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            required
+            type="password"
+            type="{{ hidePassword ? 'password' : 'text' }}"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword"
+          >
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">
+            Password should contain at least one uppercase letter, one lowercase
+            letter, one number, and one special character (8-16 characters)
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            placeholder="Confirm Password"
+            formControlName="confirmPassword"
+            required
+            type="{{ hideCfPassword ? 'password' : 'text' }}"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hideCfPassword = !hideCfPassword"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideCfPassword"
+          >
+            <mat-icon>{{
+              hideCfPassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="registerForm.get('confirmPassword')?.hasError('required')"
+          >
+            Confirm Password is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('confirmPassword')?.hasError('notSame')"
+          >
+            Passwords do not match
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="registerLoader"
+        >
+          <div class="btn-content">
+            <span>Register</span>
+            <mat-spinner *ngIf="registerLoader" diameter="18"></mat-spinner>
+          </div>
+        </button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <a routerLink="/signin">Already Registered? Go back & Sign in</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
